@@ -14,11 +14,6 @@
 
         gtag('config', 'UA-164580140-1');
     </script>
-    <!-- Jquery Develop -->
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <!-- Jquery Production -->
-    <!--    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>-->
-
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -31,6 +26,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+
     <!-- Custom Script -->
     <script src="js/index.js"></script>
     <link rel="stylesheet" href="css/index.css"/>
@@ -44,9 +40,17 @@
         <div class="card border-0 shadow my-5 bg-light">
             <div class="card-body py-5 mx-auto">
                 <h1 class="font-weight-bold text-center">어떤 색깔로 칠하고 싶나요?</h1>
-                <canvas id="canvas" width="800" height="800" class="mt-3">
-                    This site requires canvas support.
-                </canvas>
+                <span class="canvas mt3">
+                    <div id="start_mask" class="animated bounce infinite">
+                        <button id="start_btn" type="button" class="btn btn-primary btn-lg btn-block mt-5"
+                                data-toggle="collapse" data-target="#start_mask" aria-expanded="false"
+                                aria-controls="start_mask">시작해 볼까요?</button>
+                    </div>
+                    <canvas id="canvas" width="800" height="800" style="width: 800px;
+                      height: 800px;">
+                        This site requires canvas support.
+                    </canvas>
+                </span>
             </div>
         </div>
     </div>
