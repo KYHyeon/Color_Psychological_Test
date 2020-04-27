@@ -158,5 +158,5 @@ $(document).ready(() => {
         return false;
     });
 
-    init(ctx);
+    init();
 });
