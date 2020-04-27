@@ -139,7 +139,8 @@ function init() {
 }
 
 function onMouseDown(x, y) {
-    if (y <= HEIGHT * 2 / 3) {
+    console.log($canvas.offset());
+    if (y <= $canvas.offset().top + HEIGHT * 2 / 3) {
         sketch.onMouseDown(x, y);
     } else {
         colorPicker.onMouseDown(x, y);
