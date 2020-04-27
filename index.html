@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164580140-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-164580140-1');
+    </script>
     <!-- Jquery Develop -->
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <!-- Jquery Production -->
@@ -18,7 +31,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-
     <!-- Custom Script -->
     <script src="js/index.js"></script>
     <link rel="stylesheet" href="css/index.css"/>
@@ -27,21 +39,24 @@
     <title>색깔 심리 테스트</title>
 </head>
 <body>
-<canvas id="canvas" width="800" height="800">
-    This site requires canvas support.
-</canvas>
+<div class="background pb-5">
+    <div class="container">
+        <div class="card border-0 shadow my-5 bg-light">
+            <div class="card-body py-5 mx-auto">
+                <h1 class="font-weight-bold text-center">어떤 색깔로 칠하고 싶나요?</h1>
+                <canvas id="canvas" width="800" height="800" class="mt-3">
+                    This site requires canvas support.
+                </canvas>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="disqus_thread"></div>
 <script>
-
-    /**
-     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-        // /*
     var disqus_config = function () {
-            this.page.url = "https://kyhyeon-github-io-color-psychological-test.disqus.com/";  // Replace PAGE_URL with your page's canonical URL variable
-            this.page.identifier = "main_page"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-        };
-    // */
+        this.page.url = "https://kyhyeon-github-io-color-psychological-test.disqus.com/";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "main_page"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
     (function () { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
         s.src = 'https://kyhyeon-github-io-color-psychological-test.disqus.com/embed.js';
@@ -51,6 +66,5 @@
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
     Disqus.</a></noscript>
-
 </body>
 </html>
