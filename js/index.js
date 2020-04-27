@@ -64,6 +64,7 @@ $(document).ready(() => {
         let x = event.x - $canvas.offset().left;
         let y = event.y - $canvas.offset().top;
         onMouseDown(x, y);
+        return false;
     });
 
     init(ctx);
