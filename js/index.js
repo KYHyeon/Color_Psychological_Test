@@ -65,19 +65,36 @@ class ColorPicker {
         this.x = 0;
         this.y = HEIGHT / 3 * 2;
 
-        this.colors = ["red", "blue"];
+        this.colors = ["red", "blue", "green", "pink", "violet", "yellow", "cyan"];
         this.n_color = this.colors.length;
         // this.background_color = [0, 0, 0];
 
         for (let i = 0; i < this.n_color; i++)
             this.draw(i);
+
+        ctx.font = "20px gothic";
+        ctx.fillStyle = "black";
+        ctx.fillText("현재 선택된 색", this.width / 5, this.y + this.height / 8 * 6);
+
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.moveTo(0, this.y + this.height / 2);
+        ctx.lineTo(this.width, this.y + this.height / 2);
+        ctx.stroke();
+
+        ctx.fillStyle = 'red';
+        ctx.fillRect(this.width / 5 * 3, this.y + this.height / 8 * 5, this.height / 24, this.height / 8);
+        ctx.fillStyle = 'green';
+        ctx.fillRect(this.width / 5 * 3 + this.height / 24, this.y + this.height / 8 * 5, this.height / 24, this.height / 8);
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(this.width / 5 * 3 + this.height / 24 * 2, this.y + this.height / 8 * 5, this.height / 24, this.height / 8);
     }
 
     draw(i) {
         ctx.beginPath();
         ctx.strokeStyle = this.colors[i];
         ctx.fillStyle = this.colors[i];
-        ctx.arc(100 + this.x + i * 200, this.y + this.height / 2, this.height / 4, 0, Math.PI * 2);
+        ctx.arc(100 + this.x + i * 100, this.y + this.height / 4, this.height / 8, 0, Math.PI * 2);
         ctx.fill();
         ctx.stroke();
     }
@@ -96,6 +113,9 @@ class ColorPicker {
         let old = selected_color;
         selected_color = c;
         console.log(`ColorPicker: Color changed ${old} to ${c}`);
+
+        ctx.fillStyle = 'rgb(' + c[R] + ',' + c[G] + ',' + c[B] + ')';
+        ctx.fillRect(this.width / 5 * 3, this.y + this.height / 8 * 5, this.height / 8, this.height / 8);
     }
 }
 
