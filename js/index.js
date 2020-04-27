@@ -1,35 +1,52 @@
-function init(ctx) {
+// Global Variables
+let $canvas;
+let canvas;
+let ctx;
+
+// 상수 정의
+const R = 0;
+const G = 1;
+const B = 2;
+const COLOR_LEVEL = 256;
+
+const WIDTH = 800;
+const HEIGHT = 800;
+
+let step = 10;  // 구역의 개수
+
+function randomColor() {
+    let ret = [];
+    for (let i = 0; i < 3; i++) {
+        ret.push(Math.floor(Math.random() * COLOR_LEVEL));
+    }
+    console.log(`Create Random Color : [${ret[R]}, ${ret[G]}, ${ret[B]}]`);
+    return ret;
+}
+
+function init() {
     // 테두리 그리기
     ctx.beginPath();
-    ctx.rect(0, 0, 800, 800);
+    ctx.rect(0, 0, WIDTH, HEIGHT);
     ctx.stroke();
 
-    let step = 10;
     for (let i = 0; i < step; i++) {
-        let r = Math.floor(Math.random() * 256);
-        let g = Math.floor(Math.random() * 256);
-        let b = Math.floor(Math.random() * 256);
-        ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
-        ctx.fillRect(i / 10 * 800, 0, 800 / step, 800);
+        let color = randomColor();
+        ctx.fillStyle = 'rgb(' + color[R] + ',' + color[G] + ',' + color[B] + ')';
+        ctx.fillRect(i / step * WIDTH, 0, WIDTH / step, HEIGHT);
     }
 }
 
 // 캔버스 위치로 부터 구역 반환
 function getSection(x, y) {
-    console.log('Section : ' + Math.floor(x / 80));
-    return Math.floor(x / 80);
+    console.log('Section : ' + Math.floor(x / (WIDTH / step)));
+    return Math.floor(x / (WIDTH / step));
 }
 
+// 클릭한 구역의 색상 변경
 function redraw(section) {
-    const $canvas = $('#canvas');
-    const canvas = $canvas[0];
-    const ctx = canvas.getContext('2d');
-
-    let r = Math.floor(Math.random() * 256);
-    let g = Math.floor(Math.random() * 256);
-    let b = Math.floor(Math.random() * 256);
-    ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
-    ctx.fillRect(section * 80, 0, 800 / 10, 800);
+    let color = randomColor();
+    ctx.fillStyle = 'rgb(' + color[R] + ',' + color[G] + ',' + color[B] + ')';
+    ctx.fillRect(section * (WIDTH / step), 0, WIDTH / step, HEIGHT);
 }
 
 //캔버스 내의 마우스 이벤트 핸들러
@@ -39,13 +56,13 @@ function onMouseDown(x, y) {
 }
 
 $(document).ready(() => {
-    const $canvas = $('#canvas');
-    const canvas = $canvas[0];
-    const ctx = canvas.getContext('2d');
+    $canvas = $('#canvas');
+    canvas = $canvas[0];
+    ctx = canvas.getContext('2d');
 
     $canvas.mousedown(function () {
-        var x = event.x - $canvas.offset().left;
-        var y = event.y - $canvas.offset().top;
+        let x = event.x - $canvas.offset().left;
+        let y = event.y - $canvas.offset().top;
         onMouseDown(x, y);
     });
 
