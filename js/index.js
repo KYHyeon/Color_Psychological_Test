@@ -3,6 +3,11 @@ let $canvas;
 let canvas;
 let ctx;
 
+let sketch;
+let colorPicker;
+
+let selected_color;
+
 // 상수 정의
 const R = 0;
 const G = 1;
@@ -12,7 +17,87 @@ const COLOR_LEVEL = 256;
 const WIDTH = 800;
 const HEIGHT = 800;
 
-let step = 10;  // 구역의 개수
+class Sketch {
+    constructor() {
+        this.width = WIDTH;
+        this.height = HEIGHT / 3 * 2;
+
+        this.x = 0;
+        this.y = 0;
+
+        this.step = 10;  // 구역의 개수
+
+        for (let section = 0; section < this.step; section++) {
+            this.draw(section);
+        }
+    }
+
+    // 캔버스 위치로 부터 구역 반환
+    //TODO 구역 캔버스로 부터 받아와서 반환
+    getSection(x, y) {
+        console.log('Sketch: Section : ' + Math.floor(x / (this.width / this.step)));
+        return Math.floor(x / (this.width / this.step));
+    }
+
+    // 클릭한 구역의 색상 변경
+    draw(section) {
+        let color = selected_color;
+        if (color === undefined)
+            color = randomColor();
+
+        // ctx.fillStyle = color;
+        ctx.fillStyle = 'rgb(' + color[R] + ',' + color[G] + ',' + color[B] + ')';
+        ctx.fillRect(section * (this.width / this.step), 0, this.width / this.step, this.height);
+    }
+
+    //스케치 구역 내의 마우스 이벤트 핸들러
+    onMouseDown(x, y) {
+        console.log(`Sketch: Mouse Down {${x}, ${y}}`);
+        this.draw(this.getSection(x, y));
+    }
+}
+
+class ColorPicker {
+    constructor() {
+        this.width = WIDTH;
+        this.height = HEIGHT / 3;
+
+        this.x = 0;
+        this.y = HEIGHT / 3 * 2;
+
+        this.colors = ["red", "blue"];
+        this.n_color = this.colors.length;
+        // this.background_color = [0, 0, 0];
+
+        for (let i = 0; i < this.n_color; i++)
+            this.draw(i);
+    }
+
+    draw(i) {
+        ctx.beginPath();
+        ctx.strokeStyle = this.colors[i];
+        ctx.fillStyle = this.colors[i];
+        ctx.arc(100 + this.x + i * 200, this.y + this.height / 2, this.height / 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+    }
+
+    onMouseDown(x, y) {
+        console.log('ColorPicker: Mouse Down {' + x + ', ' + y + '}');
+
+        x = event.offsetX;
+        y = event.offsetY;
+        let c = ctx.getImageData(x, y, 1, 1).data;
+
+        if (!(c[0] || c[1] || c[2])) {
+            return;
+        }
+
+        let old = selected_color;
+        selected_color = c;
+        console.log(`ColorPicker: Color changed ${old} to ${c}`);
+    }
+}
 
 function randomColor() {
     let ret = [];
@@ -29,30 +114,16 @@ function init() {
     ctx.rect(0, 0, WIDTH, HEIGHT);
     ctx.stroke();
 
-    for (let i = 0; i < step; i++) {
-        let color = randomColor();
-        ctx.fillStyle = 'rgb(' + color[R] + ',' + color[G] + ',' + color[B] + ')';
-        ctx.fillRect(i / step * WIDTH, 0, WIDTH / step, HEIGHT);
-    }
+    sketch = new Sketch();
+    colorPicker = new ColorPicker();
 }
 
-// 캔버스 위치로 부터 구역 반환
-function getSection(x, y) {
-    console.log('Section : ' + Math.floor(x / (WIDTH / step)));
-    return Math.floor(x / (WIDTH / step));
-}
-
-// 클릭한 구역의 색상 변경
-function redraw(section) {
-    let color = randomColor();
-    ctx.fillStyle = 'rgb(' + color[R] + ',' + color[G] + ',' + color[B] + ')';
-    ctx.fillRect(section * (WIDTH / step), 0, WIDTH / step, HEIGHT);
-}
-
-//캔버스 내의 마우스 이벤트 핸들러
 function onMouseDown(x, y) {
-    console.log('Mouse Down {' + x + ', ' + y + '}');
-    redraw(getSection(x, y));
+    if (y <= HEIGHT * 2 / 3) {
+        sketch.onMouseDown(x, y);
+    } else {
+        colorPicker.onMouseDown(x, y);
+    }
 }
 
 $(document).ready(() => {
