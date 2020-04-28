@@ -1,3 +1,5 @@
+var selected_color = Color.random();
+
 var stages = {
     1: {
         svgs: {
@@ -10,8 +12,9 @@ var stages = {
 
 function load_stage(n) {
     project.clear();
-    for (var svg in stages[n]['svgs']) {
-        project.importSVG(stages[n]['svgs'][svg]);
+    for (var svg in stages[n].svgs) {
+        if (stages[n].svgs.hasOwnProperty(svg))
+            project.importSVG(stages[n].svgs[svg]);
     }
 }
 
@@ -27,10 +30,17 @@ function onMouseDown(event) {
     if (!hitResult)
         return;
 
+    console.log(event.point);
     console.log(hitResult);
 
-    hitResult.item.strokeColor = Color.random();
-    hitResult.item.fillColor = Color.random();
+    if (event.point.y >= 550) {
+        selected_color = hitResult.item.strokeColor;
+        selected_color = hitResult.item.fillColor;
+    } else {
+        hitResult.item.strokeColor = selected_color;
+        hitResult.item.fillColor = selected_color;
+    }
+
 }
 
 load_stage(1);
