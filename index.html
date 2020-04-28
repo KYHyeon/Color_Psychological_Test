@@ -26,9 +26,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+    <!-- Paper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.2/paper-full.min.js"></script>
 
     <!-- Custom Script -->
-    <script src="js/index.js"></script>
+    <script type="text/paperscript" src="js/stages.js" canvas="canvas"></script>
+
     <link rel="stylesheet" href="css/index.css"/>
 
     <meta charset="UTF-8">
@@ -42,12 +45,14 @@
                 <h1 class="font-weight-bold text-center">어떤 색깔로 칠하고 싶나요?</h1>
                 <span class="canvas mt3">
                     <div id="start_mask" class="animated bounce infinite">
-                        <button id="start_btn" type="button" class="btn btn-primary btn-lg btn-block mt-5"
-                                data-toggle="collapse" data-target="#start_mask" aria-expanded="false"
-                                aria-controls="start_mask">시작해 볼까요?</button>
-                    </div>
-                    <canvas id="canvas" width="800" height="800" style="width: 800px;
-                      height: 800px;">
+                                            <button id="start_btn" type="button"
+                                                    class="btn btn-primary btn-lg btn-block mt-5"
+                                                    data-toggle="collapse" data-target="#start_mask"
+                                                    aria-expanded="false"
+                                                    aria-controls="start_mask">시작해 볼까요?</button>
+                                        </div>
+                    <canvas id="canvas" width="800" height="700" style="width: 800px;
+                      height: 700px;">
                         This site requires canvas support.
                     </canvas>
                     <ins class="kakao_ad_area" style="display:none;"
